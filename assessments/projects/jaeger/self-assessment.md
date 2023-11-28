@@ -264,17 +264,17 @@ vulnerabilities, etc.
 * The pull request will then be reviewed and merged by the maintainer
 
 
-#### Communication Channels. 
+### Communication Channels. 
 Reference where you document how to reach your team or
 describe in corresponding section.
   
-##### Internal
+#### Internal
 * Jaeger maintainers and contributors have a monthly zoom meeting every 3rd thursday at 11am EST.
 
-##### Inbound
+#### Inbound
 * Inbound Users can contact the Jaeger team via email at jaeger-tracing@googlegroups.com, open an issue on GitHub or send a message to the #jaeger channel on the CNCF Slack.
 
-##### Outbound
+#### Outbound
 * Outbound the Jaeger team communicates with their users on their website and the #jaeger channel on the CNCF Slack.
 
 ### Ecosystem. 
@@ -314,23 +314,57 @@ Prometheus is a well-liked open-source monitoring and alerting toolkit that can 
   disclosures process should suspected security issues, incidents, or
 vulnerabilities be discovered both external and internal to the project. The
 outline should discuss communication methods/strategies.
+
+Vulnerabilities are shared with users and then publicly.
+
   * Vulnerability Response Process. Who is responsible for responding to a
     report. What is the reporting process? How would you respond?
+    
+A report can be sent via email at jaeger-tracing@googlegroups.com, open an issue on GitHub or send a message to the #jaeger channel on the CNCF Slack encrypted with Jaeger’s public key. Responses can be sent directly via the method used to contact the maintainers by the maintainers.
+
 * Incident Response. A description of the defined procedures for triage,
   confirmation, notification of vulnerability or security incident, and
 patching/update availability.
 
+Security Advisories are listed and responded to on the [security tab of the Jaeger GitHub](https://github.com/jaegertracing/jaeger/security/advisories).
+
 ## Appendix
 
-* Known Issues Over Time. List or summarize statistics of past vulnerabilities
-  with links. If none have been reported, provide data, if any, about your track
+### Known Issues Over Time. 
+List or summarize statistics of past vulnerabilities with links. If none have been reported, provide data, if any, about your track
 record in catching issues in code review or automated testing.
-* [CII Best Practices](https://www.coreinfrastructure.org/programs/best-practices-program/).
+
+#### Miscellaneous Issues 
+* The Jaeger architecture relies on a central collector to receive and store trace reports from agents and microservices. The collector exposes HTTP endpoints like /api/traces for trace data submission, lacking authentication. This vulnerability opens the possibility of a Server-Side Request Forgery (SSRF) attack, enabling a compromised microservice to submit malicious trace data to the collector. Implementing token-based access enhances collector security by restricting entry to authenticated agents.
+
+### [CII Best Practices](https://www.coreinfrastructure.org/programs/best-practices-program/).
   Best Practices. A brief discussion of where the project is at
   with respect to CII best practices and what it would need to
   achieve the badge.
-* Case Studies. Provide context for reviewers by detailing 2-3 scenarios of
-  real-world use cases.
-* Related Projects / Vendors. Reflect on times prospective users have asked
-  about the differences between your project and projectX. Reviewers will have
+
+* The Jaeger project has achieved passing level criteria under Open Source Security Foundation Best Practices and is in the process of obtaining the silver badge.
+* Jaeger-client-js and Jaeger-client-javascript is in the process of obtaining passing level criteria.
+
+### Case Studies. 
+Provide context for reviewers by detailing 2-3 scenarios of real-world use cases.
+#### Ticketmaster: 
+* Consisting of over 300 microservices, the company benefits from the Jaeger project, utilizing the system to track over 100 million transactions a day. 
+* As the company scaled, they quickly learned that logging was insufficient and bulky. It helped uncomplicate the log aggregation process which generated terabytes of data daily. Jaeger simplified the debugging process by providing visibility into critical areas. – where developers could find root causes of issues and save time doing so.
+* Ticketmaster uses the Directed Acyclic Graph (DAG) view to see request flow. 
+* They also take advantage of Jaeger’s powerful adaptive sampling feature which reduces overhead without reducing visibility into systems.
+#### Grafana Labs: 
+* They needed a solution to trace request issues end-to-end. Grafana sometimes dealt with high request latency and opaque request paths. 
+* Jaeger allowed engineers to sort requests by duration with the Jaeger UI, which identified slow problematic requests and allowed for more granular troubleshooting. 
+* The immediate effect of this higher efficiency troubleshooting was the ability to increase query optimization, sometimes by 5 to 10x. 
+* One feature they particularly like is the contextual logging capability. 
+#### Logz.io: 
+* The company was dealing with seemingly random decreasing performance issues in certain request flows. Logs failed to provide the answer or clue they were looking for. 
+* They incorporated Jaeger into their Node.js HTTP layers. 
+* The Jaeger UI immediately identified a series of issues including the serial call (a.k.a “staircase”) and a “span spike” (a request that ranged from a few milliseconds to 10 seconds).
+* They correlate logs with traces. These combined allow for a powerful troubleshooting system. Logz.io does so by attaching a request ID field to every log and adding it as a tag to the respective span.
+
+### Related Projects / Vendors. 
+Reflect on times prospective users have asked about the differences between your project and projectX. Reviewers will have
 the same question.
+
+**ZipKin** was an earlier open source distributed tracing system which is used to help users monitor and troubleshoot microservice-based architectures. Both Zipkin and Jaeger aim to provide visibility into the flow of requests and responses across various services in a distributed system. While Zipkin has been around longer, Jaeger is known for its scalability to handle tracing in large and complex microservices and displaying those traces on the Web UI. Jaeger also has backward compatibility with Zipkin to help users transition from Zipkin to Jaeger. While Zipkin has been around longer than Jaeger, Jaeger has the benefit of being a part of Cloud Native Computing Foundation(CNCF), supporting containers, kubernetes and OpenTracing. To conclude, the decision between the two comes down to preference, supported languages and whatever is compatible with your existing tech stack.
