@@ -110,9 +110,6 @@ Jaeger Query exposes [APIs](https://www.jaegertracing.io/docs/1.50/apis) for rec
 
 Reads traces from Kafka and writes to a database. (stripped down version of jaeger collector supporting Kafka).
 
-#### 
-
-
 
 ### Actions
 These are the steps that a project performs in order to provide some service
@@ -126,10 +123,52 @@ validates that the request corresponds to a file the client is authorized to
 access, and then returns a token to the client.  The client then transmits that 
 token to the file server, which, after confirming its validity, returns the file.
 
+Sampling is necessary to reduce the number of traces stored in the backend. For larger applications this is especially important given the millions (or billions) of requests being made. It reduces overhead.
+
+#### Remote Sampling Mode
+Remote sampling centralizes all sampling configurations of Jaeger collectors. It's a feature that lets you adjust how quickly traces get simplified. Jaeger can employ remote sampling to determine the server-side sample method in place of sampling every trace on the client side. 
+
+#### Adaptive Sampling Mode
+The Jaeger Collector analyzes the incoming spans received from services with a tracing client like the OpenTelemetry SDK to automatically adjust the sampling rate. Incoming spans and samples are sent to some storage backend configured to the larger system.
+
+#### Direct to Storage
+When sending traces directly to storage, containers generate traces using a client like the OpenTelemetry SDK and push that data to the jaeger collector set to either adaptively or remotely sample traces. Those traces are then sent from the Jaeger collector to some backend storage and can be viewed and analyzed on Jaeger Query’s Jaeger UI.
+
+#### Jaeger with Kafka
+The Jaeger Ingester is a stripped down version of the Jaeger collector made to accept data from Kafka. Kafka can be used with Jaeger software as an intermediary queue. Jaeger guarantees excellent availability and reliability for trace data, particularly in dispersed and high-throughput settings, by using Kafka as the transport for trace data. The tracing data in Jaeger with Kafka is sent to Kafka instead of the Jaeger collector. After that, the Jaeger Ingester reads and interprets the tracing data from Kafka to send to backend data storage. 
+
+#### Software Release: 
+Jaeger is released under the Apache License 2.0, which allows it to be freely used, modified, and distributed.
+
+
 ### Goals
 The intended goals of the projects including the security guarantees the project
  is meant to provide (e.g., Flibble only allows parties with an authorization
 key to change data it stores).
+
+#### Distributed tracing: 
+Jaeger allows tracing the flow of requests and understanding how they propagate through various services in a microservice architecture.
+
+#### Monitoring: 
+Jaeger aids in monitoring performance of individual services and the overall system by providing insights into the response times, latency and dependencies between services. Jaeger simplifies the process of debugging and optimizing performance.
+
+#### Root cause analysis: 
+Jaeger assists in identifying the performance bottlenecks in distributed systems. 
+
+#### Scalability: 
+Jaeger has high scalability to handle tracing in large and complex microservices. 
+
+#### Compatibility: 
+Jaeger is designed to support openTracing, open Telemetry, and multiple storage backends including two NoSQL databases, Cassandra and Elasticsearch.
+
+#### Web UI: 
+Implemented in Javascript to handle large volumes of data and display traces with thousands of spans.
+
+#### Maintain Security: 
+Jaeger includes security features like data encryption in transit and at rest to protect trace data.
+Integration: Ensure user-friendliness and acceptance by integrating seamlessly with operational workflows and development tools.
+Sampling Strategies: To control the amount of trace data that is gathered and kept, offer customizable sampling techniques.
+
 
 ### Non-goals
 Non-goals that a reasonable reader of the project’s literature could believe may
@@ -137,21 +176,29 @@ be in scope (e.g., Flibble does not intend to stop a party with a key from stori
 an arbitrarily large amount of data, possibly incurring financial cost or overwhelming
  the servers)
 
+* Jaeger does not provide real-time alerts. For example, it won’t automatically alert a user if a system is down.
+* It does not provide detailed system metrics collection. For example, CPU usage, memory usage, or disk input/output. This is reserved for system monitoring tools.
+* No automatic anomaly detection (no ML capabilities). It provides the visualization and capabilities for users to detect anomalies themselves, but not automatically.
+* It is not designed for security monitoring or security compliance monitoring. Jaeger complements, rather than replaces, existing monitoring systems.
+* It is not intended for or capable of business analytics (user behavior, conversion rates…).
+* Jaeger does not focus on preventing insider data leaks.
+
+
 ## Self-assessment use
 
-This self-assessment is created by the [project] team to perform an internal analysis of the
-project's security.  It is not intended to provide a security audit of [project], or
-function as an independent assessment or attestation of [project]'s security health.
+This self-assessment is created by the Jaeger team to perform an internal analysis of the
+project's security.  It is not intended to provide a security audit of Jaeger, or
+function as an independent assessment or attestation of Jaeger's security health.
 
-This document serves to provide [project] users with an initial understanding of
-[project]'s security, where to find existing security documentation, [project] plans for
-security, and general overview of [project] security practices, both for development of
-[project] as well as security of [project].
+This document serves to provide Jaeger users with an initial understanding of
+Jaeger's security, where to find existing security documentation, Jaeger plans for
+security, and general overview of Jaeger security practices, both for development of
+Jaeger as well as security of Jaeger.
 
-This document provides the CNCF TAG-Security with an initial understanding of [project]
+This document provides the CNCF TAG-Security with an initial understanding of Jaeger
 to assist in a joint-assessment, necessary for projects under incubation.  Taken
 together, this document and the joint-assessment serve as a cornerstone for if and when
-[project] seeks graduation and is preparing for a security audit.
+Jaeger seeks graduation and is preparing for a security audit.
 
 ## Security functions and features
 
@@ -160,10 +207,29 @@ description of their importance.  It is recommended these be used for threat mod
 These are considered critical design elements that make the product itself secure and
 are not configurable.  Projects are encouraged to track these as primary impact items
 for changes to the project.
+#### Encryption: 
+
+* Jaeger is capable of encrypting data using Transport Layer Security (TLS) in conjunction with mutual TLS (mTLS). Using mTLS offers a better level of security because it necessitates the validity of certificates on both the client and the server (and thus mitigates man-in-the middle attacks). 
+* The OpenTelemetry SDK can communicate to the jaeger collector by gRPC or HTTP with the option to enable TLS with mTLS.
+* The Jaeger Collector, Ingester and Query can communicate to storage via third-party software like Cassandra, ElasticSearch and Kafka all with TLS with mTLS support. 
+* Elasticsearch supports bearer token propagation and Kafka also supports Kerberos and plaintext authentication.
+
+
 * Security Relevant.  A listing of security relevant components of the project with
   brief description.  These are considered important to enhance the overall security of
 the project, such as deployment configurations, settings, etc.  These should also be
 included in threat modeling.
+
+#### Authentication and Authorization
+* Bearer tokens are an option offered by Jaeger for these purposes.
+* Users and apps are granted restricted access to Jaeger's capabilities through the use of OAuth2 tokens. Jaeger also supports plaintext and Kerberos authentication.
+
+#### Access Control: 
+* Role-based access control (RBAC) is a feature that Jaeger provides for both users and applications. 
+* This enables system administrators to specify the roles and permissions of various users. This guarantees that sensitive information and functions can only be accessed by authorized users.
+
+#### Security Auditing:
+* Jaeger provides tools for monitoring and auditing. It has the ability to monitor user actions such logins, searches, and sensitive data access. Administrators can utilize this data to quickly identify and fix possible security issues.
 
 ## Project compliance
 
