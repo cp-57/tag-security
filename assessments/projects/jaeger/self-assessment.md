@@ -112,16 +112,16 @@ Reads traces from Kafka and writes to a database. (stripped down version of jaeg
 
 
 ### Actions
-These are the steps that a project performs in order to provide some service
+_These are the steps that a project performs in order to provide some service
 or functionality.  These steps are performed by different actors in the system.
 Note, that an action need not be overly descriptive at the function call level.  
 It is sufficient to focus on the security checks performed, use of sensitive 
-data, and interactions between actors to perform an action.  
+data, and interactions between actors to perform an action._  
 
-For example, the access server receives the client request, checks the format, 
+_For example, the access server receives the client request, checks the format, 
 validates that the request corresponds to a file the client is authorized to 
 access, and then returns a token to the client.  The client then transmits that 
-token to the file server, which, after confirming its validity, returns the file.
+token to the file server, which, after confirming its validity, returns the file._
 
 Sampling is necessary to reduce the number of traces stored in the backend. For larger applications this is especially important given the millions (or billions) of requests being made. It reduces overhead.
 
@@ -157,9 +157,9 @@ Jaeger is released under the Apache License 2.0, which allows it to be freely us
 
 
 ### Goals
-The intended goals of the projects including the security guarantees the project
+_The intended goals of the projects including the security guarantees the project
  is meant to provide (e.g., Flibble only allows parties with an authorization
-key to change data it stores).
+key to change data it stores)._
 
 ##### General Goals: 
 
@@ -178,10 +178,10 @@ Sampling Strategies: To control the amount of trace data that is gathered and ke
 
 
 ### Non-goals
-Non-goals that a reasonable reader of the project’s literature could believe may
+_Non-goals that a reasonable reader of the project’s literature could believe may
 be in scope (e.g., Flibble does not intend to stop a party with a key from storing
 an arbitrarily large amount of data, possibly incurring financial cost or overwhelming
- the servers)
+ the servers)_
 
 ##### General Non-Goals:
 * Jaeger does not provide real-time alerts and lacks automated notification capabilities for system downtime.
@@ -194,7 +194,6 @@ an arbitrarily large amount of data, possibly incurring financial cost or overwh
 * Not designed for security monitoring or security compliance monitoring purposes.
 * While including security features, Jaeger does not focus on comprehensive security measures.
 * Jaeger does not specifically focus on preventing insider data leaks.
-
 
 
 ## Self-assessment use
@@ -254,11 +253,11 @@ Jaeger does not currently document meeting particular compliance standards.
 ## Secure development practices
 
 ### Development Pipeline.  
-A description of the testing and assessment processes that
+_A description of the testing and assessment processes that
 the software undergoes as it is developed and built. Be sure to include specific
 information such as if contributors are required to sign commits, if any container
 images immutable and signed, how many reviewers before merging, any automated checks for
-vulnerabilities, etc.
+vulnerabilities, etc._
 
 * To contribute change, an issue must be opened first. The issue should describe:
   * Requirement: what use case is being solved
@@ -280,8 +279,7 @@ vulnerabilities, etc.
 
 
 ### Communication Channels. 
-Reference where you document how to reach your team or
-describe in corresponding section.
+_Reference where you document how to reach your team or describe in corresponding section._
   
 #### Internal
 * Jaeger maintainers and contributors have a monthly zoom meeting every 3rd thursday at 11am EST.
@@ -293,9 +291,8 @@ describe in corresponding section.
 * Outbound the Jaeger team communicates with their users on their website and the #jaeger channel on the CNCF Slack.
 
 ### Ecosystem. 
-How does your software fit into the cloud native ecosystem?  (e.g. Flibber is integrated with both Flocker and Noodles which covers virtualization for 80% of cloud users. So, our small number of "users" actually
-represents very wide usage across the ecosystem since every virtual instance uses
-Flibber encryption by default.)
+_How does your software fit into the cloud native ecosystem?  (e.g. Flibber is integrated with both Flocker and Noodles which covers virtualization for 80% of cloud users. So, our small number of "users" actually represents very wide usage across the ecosystem since every virtual instance uses
+Flibber encryption by default.)_
 
 #### OpenTelemetry Integration: 
 OpenTelemetry can be used in place of the deprecated Jaeger Agent.
@@ -343,22 +340,19 @@ Security Advisories are listed and responded to on the [security tab of the Jaeg
 ## Appendix
 
 ### Known Issues Over Time. 
-List or summarize statistics of past vulnerabilities with links. If none have been reported, provide data, if any, about your track
-record in catching issues in code review or automated testing.
+_List or summarize statistics of past vulnerabilities with links. If none have been reported, provide data, if any, about your track record in catching issues in code review or automated testing._
 
 #### Miscellaneous Issues 
 * The Jaeger architecture relies on a central collector to receive and store trace reports from agents and microservices. The collector exposes HTTP endpoints like /api/traces for trace data submission, lacking authentication. This vulnerability opens the possibility of a Server-Side Request Forgery (SSRF) attack, enabling a compromised microservice to submit malicious trace data to the collector. Implementing token-based access enhances collector security by restricting entry to authenticated agents.
 
 ### [CII Best Practices](https://www.coreinfrastructure.org/programs/best-practices-program/).
-  Best Practices. A brief discussion of where the project is at
-  with respect to CII best practices and what it would need to
-  achieve the badge.
+_Best Practices. A brief discussion of where the project is at with respect to CII best practices and what it would need to achieve the badge._
 
 * The Jaeger project has achieved passing level criteria under Open Source Security Foundation Best Practices and is in the process of obtaining the silver badge.
 * Jaeger-client-js and Jaeger-client-javascript is in the process of obtaining passing level criteria.
 
 ### Case Studies. 
-Provide context for reviewers by detailing 2-3 scenarios of real-world use cases.
+_Provide context for reviewers by detailing 2-3 scenarios of real-world use cases._
 #### Ticketmaster: 
 * Consisting of over 300 microservices, the company benefits from the Jaeger project, utilizing the system to track over 100 million transactions a day. 
 * As the company scaled, they quickly learned that logging was insufficient and bulky. It helped uncomplicate the log aggregation process which generated terabytes of data daily. Jaeger simplified the debugging process by providing visibility into critical areas. – where developers could find root causes of issues and save time doing so.
@@ -376,8 +370,8 @@ Provide context for reviewers by detailing 2-3 scenarios of real-world use cases
 * They correlate logs with traces. These combined allow for a powerful troubleshooting system. Logz.io does so by attaching a request ID field to every log and adding it as a tag to the respective span.
 
 ### Related Projects / Vendors. 
-Reflect on times prospective users have asked about the differences between your project and projectX. Reviewers will have
-the same question.
+_Reflect on times prospective users have asked about the differences between your project and projectX. Reviewers will have
+the same question._
 
 **ZipKin** was an earlier open source distributed tracing system which is used to help users monitor and troubleshoot microservice-based architectures. Both Zipkin and Jaeger aim to provide visibility into the flow of requests and responses across various services in a distributed system. While Zipkin has been around longer, Jaeger is known for its scalability to handle tracing in large and complex microservices and displaying those traces on the Web UI. Jaeger also has backward compatibility with Zipkin to help users transition from Zipkin to Jaeger. While Zipkin has been around longer than Jaeger, Jaeger has the benefit of being a part of Cloud Native Computing Foundation(CNCF), supporting containers, kubernetes and OpenTracing. To conclude, the decision between the two comes down to preference, supported languages and whatever is compatible with your existing tech stack.
 
