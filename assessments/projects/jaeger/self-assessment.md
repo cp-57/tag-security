@@ -46,19 +46,21 @@ Provide the list of links to existing security documentation for the project. Yo
 use the table below as an example:
 | Doc | url |
 | -- | -- |
-| Security file | https://my.security.file |
-| Default and optional configs | https://example.org/config |
+| Security file | [SECURITY.md](https://github.com/jaegertracing/jaeger/blob/main/SECURITY.md) |
+| Default and optional configs | [Securing Jaeger installation](https://www.jaegertracing.io/docs/1.51/security/) |
 
 ## Overview
 
-One or two sentences describing the project -- something memorable and accurate
-that distinguishes your project to quickly orient readers who may be assessing
-multiple projects.
+Jaeger is a cloud native, infinitely scalable, distributed data traversal performance tracker. Jaeger collector paired with a tracing SDK like OpenTelemetry’s SDK is used to monitor microservice interactions through traces and “spans” on distributed systems to identify bottlenecks, timeouts and other performance issues.
 
 ### Background
 
-Provide information for reviewers who may not be familiar with your project's
-domain or problem area.
+Jaeger provides real time monitoring and analytics of complex ecosystems, which is especially crucial in microservice architectures. Importantly, Jaeger can be used to identify potential communication bottlenecks in these systems. When requests are made to microservices, the Jaeger client creates a “span” which is a logical unit of work and provides information like start time, end time, and other operation metadata. These span components are then used to construct traces which are stored and can be visualized via the centralized dashboard provided by Jaeger. These comprehensive traces provide end-to-end tracing which are helpful in identifying issues and getting a full view of the system, as opposed to traditional tracing which isolate individual components.
+
+Jaeger is cross-platform compatible and provides client libraries for a variety of languages and frameworks including Java, Go, Python, and Node.js. These client libraries can be integrated with existing services to capture tracing data and send this to Jaeger agents and collectors which can be reported back to the system.
+
+With its dashboard UI, users are able to make complex queries and gather insight from collected data. They can gather information on both a more granular or broad scale – on specific traces (by trace ID), by operation (HTTP POST requests), error flags, or by time period. 
+
 
 ### Actors
 These are the individual parts of your system that interact to provide the 
