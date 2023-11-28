@@ -34,10 +34,10 @@ A table at the top for quick reference information, later used for indexing.
 
 |   |  |
 | -- | -- |
-| Software | A link to the software’s repository.  |
-| Security Provider | Yes or No. Is the primary function of the project to support the security of an integrating system?  |
-| Languages | languages the project is written in |
-| SBOM | Software bill of materials.  Link to the libraries, packages, versions used by the project, may also include direct dependencies. |
+| **Software** | [A link to Jaeger’s repository.](https://github.com/jaegertracing/jaeger)  |
+| **Security Provider** | No, the main function of this project is to enable distributed tracing in an organization’s tech infrastructure. Security is not the primary objective.  |
+| **Languages** | <ul><li>Go</li><li>Shell</li><li>Makefile</li><li>Python</li><li>Jsonnet</li><li>Dockerfile</li></ul> |
+| **SBOM** | Jaeger has an issue about making an SBOM but does not currently have one. Find that issue [here](https://github.com/jaegertracing/jaeger/issues/3943) |
 | | |
 
 ### Security links
