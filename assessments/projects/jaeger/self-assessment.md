@@ -63,14 +63,14 @@ With its dashboard UI, users are able to make complex queries and gather insight
 
 
 ### Actors
-These are the individual parts of your system that interact to provide the 
+_These are the individual parts of your system that interact to provide the 
 desired functionality.  Actors only need to be separate, if they are isolated
 in some way.  For example, if a service has a database and a front-end API, but
 if a vulnerability in either one would compromise the other, then the distinction
-between the database and front-end is not relevant.
+between the database and front-end is not relevant._
 
-The means by which actors are isolated should also be described, as this is often
-what prevents an attacker from moving laterally after a compromise.
+_The means by which actors are isolated should also be described, as this is often
+what prevents an attacker from moving laterally after a compromise._
 
 The following are the different actors found in the Jaeger project:
 
@@ -132,7 +132,22 @@ Remote sampling centralizes all sampling configurations of Jaeger collectors. It
 The Jaeger Collector analyzes the incoming spans received from services with a tracing client like the OpenTelemetry SDK to automatically adjust the sampling rate. Incoming spans and samples are sent to some storage backend configured to the larger system.
 
 #### Direct to Storage
-When sending traces directly to storage, containers generate traces using a client like the OpenTelemetry SDK and push that data to the jaeger collector set to either adaptively or remotely sample traces. Those traces are then sent from the Jaeger collector to some backend storage and can be viewed and analyzed on Jaeger Query’s Jaeger UI.
+Jaeger can be used to collect traces and store them directly.
+
+Actors
+* Tracing SDK -  installed on hosts/ containers used to generate tracing data
+* Jaeger Collector - collects tracing data from the Tracing SDK either adaptively or remotely sampling
+* Backend Storage - where trace data is written
+* Jaeger Query - APIs for receiving UI used to analyze and view tracing data
+* Jaeger UI - The part of Jaeger Query that displays tracing data to the user
+
+Workflow
+1. Tracing SDK generates tracing data and pushes it to the Jaeger Collector
+2. Jaeger Collector collects context info about traces from the Tracing SDK
+3. Jaeger Collector writes data directly to storage
+4. Jaeger Query receives data from storage and displays it on Jaeger UI
+5. User views Jaeger UI on a browser to view tracing data 
+
 
 #### Jaeger with Kafka
 The Jaeger Ingester is a stripped down version of the Jaeger collector made to accept data from Kafka. Kafka can be used with Jaeger software as an intermediary queue. Jaeger guarantees excellent availability and reliability for trace data, particularly in dispersed and high-throughput settings, by using Kafka as the transport for trace data. The tracing data in Jaeger with Kafka is sent to Kafka instead of the Jaeger collector. After that, the Jaeger Ingester reads and interprets the tracing data from Kafka to send to backend data storage. 
