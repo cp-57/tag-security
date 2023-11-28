@@ -325,21 +325,18 @@ Prometheus is a well-liked open-source monitoring and alerting toolkit that can 
 
 ## Security issue resolution
 
-* Responsible Disclosures Process. A outline of the project's responsible
-  disclosures process should suspected security issues, incidents, or
-vulnerabilities be discovered both external and internal to the project. The
-outline should discuss communication methods/strategies.
+#### Responsible Disclosures Process. 
+_A outline of the project's responsible disclosures process should suspected security issues, incidents, or vulnerabilities be discovered both external and internal to the project. The outline should discuss communication methods/strategies._
 
 Vulnerabilities are shared with users and then publicly.
 
-  * Vulnerability Response Process. Who is responsible for responding to a
-    report. What is the reporting process? How would you respond?
+#### Vulnerability Response Process. 
+_Who is responsible for responding to a report. What is the reporting process? How would you respond?_
     
 A report can be sent via email at jaeger-tracing@googlegroups.com, open an issue on GitHub or send a message to the #jaeger channel on the CNCF Slack encrypted with Jaeger’s public key. Responses can be sent directly via the method used to contact the maintainers by the maintainers.
 
-* Incident Response. A description of the defined procedures for triage,
-  confirmation, notification of vulnerability or security incident, and
-patching/update availability.
+#### Incident Response. 
+_A description of the defined procedures for triage, confirmation, notification of vulnerability or security incident, and patching/update availability._
 
 Security Advisories are listed and responded to on the [security tab of the Jaeger GitHub](https://github.com/jaegertracing/jaeger/security/advisories).
 
