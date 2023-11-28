@@ -72,6 +72,48 @@ between the database and front-end is not relevant.
 The means by which actors are isolated should also be described, as this is often
 what prevents an attacker from moving laterally after a compromise.
 
+The following are the different actors found in the Jaeger project:
+
+ I. OpenTelemetry SDK
+
+ II. Deprecated [Jaeger agent](https://github.com/jaegertracing/jaeger/issues/4739) (NOT REQUIRED)
+ 
+ III. The Jaeger Collector
+ 
+ IV. Jaeger Query
+ 
+ V. Jaeger Ingester
+
+
+<img width="726" alt="jaeger_1" src="https://github.com/cp-57/tag-security/assets/109479938/b4b36eea-dd4b-46e2-b8ea-3239eeecf21c">
+
+<i>Graphic #1 – Jaeger system architecture</i>
+
+
+#### Tracing/ OpenTelemetry SDK
+
+A Tracing or OpenTelemetry’s SDK downloaded on the client or host is used to generate tracing data. An “instrumented application” (ex. OpenTelemetry API) creates spans when receiving a request and attaches context info (trace id, span id, and baggage). Only Ids and baggage are propagated. Other info sent to Jaeger backend asynchronously (Jaeger SDK)
+
+#### Deprecated [Jaeger Agent](https://github.com/jaegertracing/jaeger/issues/4739) (NOT REQUIRED)
+
+The Jaeger Agent is a deprecated network daemon used for listening for spans sent over UDP.
+
+#### Jaeger Collector
+
+The Jaeger Collector receives processes, validates, cleans up/ enriches and stores traces in some backend data storage [(see supported)](https://www.jaegertracing.io/docs/1.50/deployment).
+
+#### Jaeger Query
+
+Jaeger Query exposes [APIs](https://www.jaegertracing.io/docs/1.50/apis) for receiving traces from a database and hosts a web interface for searching and analyzing traces.
+
+#### Jaeger Ingester
+
+Reads traces from Kafka and writes to a database. (stripped down version of jaeger collector supporting Kafka).
+
+#### 
+
+
+
 ### Actions
 These are the steps that a project performs in order to provide some service
 or functionality.  These steps are performed by different actors in the system.
