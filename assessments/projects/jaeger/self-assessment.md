@@ -146,28 +146,20 @@ The intended goals of the projects including the security guarantees the project
  is meant to provide (e.g., Flibble only allows parties with an authorization
 key to change data it stores).
 
-#### Distributed tracing: 
-Jaeger allows tracing the flow of requests and understanding how they propagate through various services in a microservice architecture.
+##### General Goals: 
 
-#### Monitoring: 
-Jaeger aids in monitoring performance of individual services and the overall system by providing insights into the response times, latency and dependencies between services. Jaeger simplifies the process of debugging and optimizing performance.
-
-#### Root cause analysis: 
-Jaeger assists in identifying the performance bottlenecks in distributed systems. 
-
-#### Scalability: 
-Jaeger has high scalability to handle tracing in large and complex microservices. 
-
-#### Compatibility: 
-Jaeger is designed to support openTracing, open Telemetry, and multiple storage backends including two NoSQL databases, Cassandra and Elasticsearch.
-
-#### Web UI: 
-Implemented in Javascript to handle large volumes of data and display traces with thousands of spans.
-
-#### Maintain Security: 
-Jaeger includes security features like data encryption in transit and at rest to protect trace data.
-Integration: Ensure user-friendliness and acceptance by integrating seamlessly with operational workflows and development tools.
+* Distributed tracing: Jaeger allows tracing the flow of requests and understanding how they propagate through various services in a microservice architecture.
+* Monitoring: Jaeger aids in monitoring performance of individual services and the overall system by providing insights into the response times, latency and dependencies between services. Jaeger simplifies the process of debugging and optimizing performance.
+Root cause analysis: Jaeger assists in identifying the performance bottlenecks in distributed systems. 
+* Scalability: Jaeger has high scalability to handle tracing in large and complex microservices. 
+Compatibility: Jaeger is designed to support openTracing, open Telemetry, and multiple storage backends including two NoSQL databases, Cassandra and Elasticsearch.
+* Web UI: Implemented in Javascript to handle large volumes of data and display traces with thousands of spans.
 Sampling Strategies: To control the amount of trace data that is gathered and kept, offer customizable sampling techniques.
+
+##### Security Goals: 
+
+* Maintain Security: Jaeger includes security features like data encryption in transit and at rest to protect trace data.
+* Integration: Ensure user-friendliness and acceptance by integrating seamlessly with operational workflows and development tools.
 
 
 ### Non-goals
@@ -176,12 +168,18 @@ be in scope (e.g., Flibble does not intend to stop a party with a key from stori
 an arbitrarily large amount of data, possibly incurring financial cost or overwhelming
  the servers)
 
-* Jaeger does not provide real-time alerts. For example, it won’t automatically alert a user if a system is down.
-* It does not provide detailed system metrics collection. For example, CPU usage, memory usage, or disk input/output. This is reserved for system monitoring tools.
-* No automatic anomaly detection (no ML capabilities). It provides the visualization and capabilities for users to detect anomalies themselves, but not automatically.
-* It is not designed for security monitoring or security compliance monitoring. Jaeger complements, rather than replaces, existing monitoring systems.
-* It is not intended for or capable of business analytics (user behavior, conversion rates…).
-* Jaeger does not focus on preventing insider data leaks.
+##### General Non-Goals:
+* Jaeger does not provide real-time alerts and lacks automated notification capabilities for system downtime.
+* Detailed system metrics, such as CPU usage, memory usage, and disk input/output, are not collected; reserved for system monitoring tools.
+* Lacks automatic anomaly detection (no ML capabilities), requiring users to visually identify anomalies.
+* Not intended for business analytics, including user behavior and conversion rates.
+* Jaeger complements, rather than replaces, existing monitoring systems.
+
+##### Security Non-Goals:
+* Not designed for security monitoring or security compliance monitoring purposes.
+* While including security features, Jaeger does not focus on comprehensive security measures.
+* Jaeger does not specifically focus on preventing insider data leaks.
+
 
 
 ## Self-assessment use
@@ -236,6 +234,8 @@ included in threat modeling.
 * Compliance.  List any security standards or sub-sections the project is
   already documented as meeting (PCI-DSS, COBIT, ISO, GDPR, etc.).
 
+Jaeger does not currently document meeting particular compliance standards.
+
 ## Secure development practices
 
 * Development Pipeline.  A description of the testing and assessment processes that
@@ -243,6 +243,26 @@ included in threat modeling.
 information such as if contributors are required to sign commits, if any container
 images immutable and signed, how many reviewers before merging, any automated checks for
 vulnerabilities, etc.
+
+* To contribute change, an issue must be opened first. The issue should describe:
+  * Requirement: what use case is being solved
+  * Problem: what is missing from Jaeger to solve the requirement
+  * Proposal: what changes are going to be made to solve the problem 
+* All packages must have a complementary test to go along with it.
+* After the approach is agreed upon, code changes can be made and a pull request can be opened
+* If one wants to work on an existing issue, they can leave a comment under the issue and submit a pull request
+* Create a new local branch and sign all your commits
+* All dependencies are automatically checked and updated using dependabot
+* Push your changes and look for an output containing an URL to create a pull request
+* Each PR should have a contain:
+  * <50 characters
+  * Capitalized title
+  * Title not end with a period
+  * A description of the problem it’s solving or a reference to the corresponding issue
+  * Summary of what changes were made
+* The pull request will then be reviewed and merged by the maintainer
+
+
 * Communication Channels. Reference where you document how to reach your team or
   describe in corresponding section.
   * Internal. How do team members communicate with each other?
