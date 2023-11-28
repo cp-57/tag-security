@@ -30,7 +30,7 @@ Express Learning course provided by Linux Foundation Training & Certification:
 
 ## Metadata
 
-A table at the top for quick reference information, later used for indexing.
+_A table at the top for quick reference information, later used for indexing._
 
 |   |  |
 | -- | -- |
@@ -41,9 +41,9 @@ A table at the top for quick reference information, later used for indexing.
 | | |
 
 ### Security links
+_Provide the list of links to existing security documentation for the project. You may
+use the table below as an example:_
 
-Provide the list of links to existing security documentation for the project. You may
-use the table below as an example:
 | Doc | url |
 | -- | -- |
 | Security file | [SECURITY.md](https://github.com/jaegertracing/jaeger/blob/main/SECURITY.md) |
