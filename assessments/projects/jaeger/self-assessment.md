@@ -214,11 +214,13 @@ Jaeger seeks graduation and is preparing for a security audit.
 
 ## Security functions and features
 
-* Critical.  A listing critical security components of the project with a brief
+### Critical.  
+_A listing critical security components of the project with a brief
 description of their importance.  It is recommended these be used for threat modeling.
 These are considered critical design elements that make the product itself secure and
 are not configurable.  Projects are encouraged to track these as primary impact items
-for changes to the project.
+for changes to the project._
+
 #### Encryption: 
 
 * Jaeger is capable of encrypting data using Transport Layer Security (TLS) in conjunction with mutual TLS (mTLS). Using mTLS offers a better level of security because it necessitates the validity of certificates on both the client and the server (and thus mitigates man-in-the middle attacks). 
@@ -227,10 +229,8 @@ for changes to the project.
 * Elasticsearch supports bearer token propagation and Kafka also supports Kerberos and plaintext authentication.
 
 
-* Security Relevant.  A listing of security relevant components of the project with
-  brief description.  These are considered important to enhance the overall security of
-the project, such as deployment configurations, settings, etc.  These should also be
-included in threat modeling.
+### Security Relevant.  
+_A listing of security relevant components of the project with brief description.  These are considered important to enhance the overall security ofthe project, such as deployment configurations, settings, etc.  These should also be included in threat modeling._
 
 #### Authentication and Authorization
 * Bearer tokens are an option offered by Jaeger for these purposes.
