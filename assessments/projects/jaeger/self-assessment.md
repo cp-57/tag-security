@@ -277,18 +277,22 @@ vulnerabilities, etc._
   * Summary of what changes were made
 * The pull request will then be reviewed and merged by the maintainer
 
+https://github.com/jaegertracing/jaeger/blob/main/CONTRIBUTING.md
+https://github.com/jaegertracing/jaeger/blob/main/CONTRIBUTING_GUIDELINES.md
+
+
 
 ### Communication Channels. 
 _Reference where you document how to reach your team or describe in corresponding section._
   
 #### Internal
-* Jaeger maintainers and contributors have a monthly zoom meeting every 3rd thursday at 11am EST.
+* Jaeger maintainers and contributors have a monthly [zoom meeting](https://calendar.google.com/calendar/u/0/embed?src=77a1bva4sn9cm822r8oa03l2j0@group.calendar.google.com) every 3rd thursday at 11am EST.
 
 #### Inbound
-* Inbound Users can contact the Jaeger team via email at jaeger-tracing@googlegroups.com, open an issue on GitHub or send a message to the #jaeger channel on the CNCF Slack.
+* Inbound Users can contact the Jaeger team via email at jaeger-tracing@googlegroups.com, open an issue on GitHub or send a message to the [#jaeger channel on the CNCF Slack](https://cloud-native.slack.com/archives/CGG7NFUJ3).
 
 #### Outbound
-* Outbound the Jaeger team communicates with their users on their website and the #jaeger channel on the CNCF Slack.
+* Outbound the Jaeger team communicates with their users on their [website](https://www.jaegertracing.io/) and the [#jaeger channel on the CNCF Slack](https://cloud-native.slack.com/archives/CGG7NFUJ3).
 
 ### Ecosystem. 
 _How does your software fit into the cloud native ecosystem?  (e.g. Flibber is integrated with both Flocker and Noodles which covers virtualization for 80% of cloud users. So, our small number of "users" actually represents very wide usage across the ecosystem since every virtual instance uses
