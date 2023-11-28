@@ -238,8 +238,9 @@ Jaeger does not currently document meeting particular compliance standards.
 
 ## Secure development practices
 
-* Development Pipeline.  A description of the testing and assessment processes that
-  the software undergoes as it is developed and built. Be sure to include specific
+### Development Pipeline.  
+A description of the testing and assessment processes that
+the software undergoes as it is developed and built. Be sure to include specific
 information such as if contributors are required to sign commits, if any container
 images immutable and signed, how many reviewers before merging, any automated checks for
 vulnerabilities, etc.
@@ -263,17 +264,49 @@ vulnerabilities, etc.
 * The pull request will then be reviewed and merged by the maintainer
 
 
-* Communication Channels. Reference where you document how to reach your team or
-  describe in corresponding section.
-  * Internal. How do team members communicate with each other?
-  * Inbound. How do users or prospective users communicate with the team?
-  * Outbound. How do you communicate with your users? (e.g. flibble-announce@
-    mailing list)
-* Ecosystem. How does your software fit into the cloud native ecosystem?  (e.g.
-  Flibber is integrated with both Flocker and Noodles which covers
-virtualization for 80% of cloud users. So, our small number of "users" actually
+#### Communication Channels. 
+Reference where you document how to reach your team or
+describe in corresponding section.
+  
+##### Internal
+* Jaeger maintainers and contributors have a monthly zoom meeting every 3rd thursday at 11am EST.
+
+##### Inbound
+* Inbound Users can contact the Jaeger team via email at jaeger-tracing@googlegroups.com, open an issue on GitHub or send a message to the #jaeger channel on the CNCF Slack.
+
+##### Outbound
+* Outbound the Jaeger team communicates with their users on their website and the #jaeger channel on the CNCF Slack.
+
+### Ecosystem. 
+How does your software fit into the cloud native ecosystem?  (e.g. Flibber is integrated with both Flocker and Noodles which covers virtualization for 80% of cloud users. So, our small number of "users" actually
 represents very wide usage across the ecosystem since every virtual instance uses
 Flibber encryption by default.)
+
+#### OpenTelemetry Integration: 
+OpenTelemetry can be used in place of the deprecated Jaeger Agent.
+* The OpenTelemetry SDK can be used to create trace data for Jaeger’s collector to collect and then store in a backend database.
+
+#### Istio Integration: 
+Jaeger offers tracing capabilities for microservices running on Kubernetes by integrating with Istio, a well-known service mesh.
+* When the services are instrumented with the Jaeger tracer, Jaeger's client libraries by default produce and send traces to Jaeger.
+* These traces are accessible through the Jaeger Query User Interface and are kept in Jaeger's storage backend (Cassandra, Elasticsearch).
+
+#### Cloud Native storage option: 
+Jaeger is compatible with a number of storage backends that can be used to store and analyze traces in a cloud-native environment, including Cassandra, Elasticsearch, and Kafka.
+* Features and benefits that are specific to each storage backend include cost-effectiveness, scalability, and high availability.
+* Trace volume, retention needs, and infrastructure already in place are a few of the factors that must be taken into consideration while selecting a storage backend.
+
+#### Kubernetes Integration: 
+Jaeger's Helm chart allows it to be deployed in Kubernetes.
+* The Helm chart offers flexibility in setting up different Kubernetes resources, including services, deployments, and configmaps, as well as in configuring Jaeger's components, including the choice of storage backend.
+* Jaeger can now be easily deployed and managed in a cloud-native environment, and Kubernetes' sophisticated features, such as self-healing and rolling upgrades, may be utilized.
+
+#### Prometheus Integration: 
+Prometheus is a well-liked open-source monitoring and alerting toolkit that can be combined with Jaeger.
+* Metrics data and traces can be correlated by merging Jaeger and Prometheus. For instance, you can investigate the related traces in Jaeger to find the source of a latency spike that you see in Prometheus.
+* Additionally, you may make custom dashboards to keep an eye on your microservices in a cloud-native environment by utilizing Jaeger's interface with Grafana, a potent data visualization and monitoring tool.
+* Jaeger excels in distributed trace capture, while Prometheus focuses on time-series metrics for system monitoring. Together, they provide a comprehensive view of distributed system behavior and performance.
+
 
 ## Security issue resolution
 
